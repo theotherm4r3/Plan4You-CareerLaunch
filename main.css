@@ -1,0 +1,39 @@
+body {
+    background: black;
+    color: white;
+    text-align: center;
+  }
+  
+  table, th, td {
+    border: 1px solid;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .column {
+    flex: 0 0 33.33%; /* Three equal-width columns */
+    max-width: 33.33%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .hide{
+    display: none;
+  }
+  
+  .drop-targets{
+    border: 1px solid;
+  }
+  
+  .box{
+    border: 1px solid;
+  }
+  
+  .drag-over{
+    border: dashed 3px red;
+  }
+  
+  

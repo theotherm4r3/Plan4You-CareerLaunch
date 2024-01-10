@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>FourYearPlanTesting</title>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="settings-div">
+    <h1>4 Year Plan Organizer</h1>
+    <label for="majors">Select major:</label> 
+      <select name="majors" id="majors"> 
+          <option value="computer-science">Computer Science</option> 
+          <option value="biological-sciences">Biological Sciences</option> 
+      </select>
+    <br>
+    <br>
+    
+    <label for="class-input">Input unneeded courses: </label>
+    <input type="text" id="class-input" name="Name">
+    <input type="button" id="add-course-button" value="Add Course">
+    
+     <br>
+    <br>
+
+    <input type="button" id="main-button" value="Go">
+    
+  </div>
+  
+  <br>
+  
+<!-- FOUR YEAR PLAN ORGANIZER -->
+<div>
+  <div class="row">
+    <div id="four-year-plan" class="column">
+      <table>
+        <tr>
+          <th colspan="2">Four Year Plan</th>
+        </tr>
+         <tr>
+           <th>Semester 1</th>
+           <th>Semester 2</th>
+        </tr>
+        <tr>
+          <td><div class="box">add class</div></td>
+          <td><div class="box">add class</div></td>
+        </tr>
+        <tr>
+          <td><div class="box">add class</div></td>
+          <td><div class="box">add class</div></td>
+        </tr>
+        <tr>
+          <td><div class="box">add class</div></td>
+          <td><div class="box">add class</div></td>
+        </tr>
+        <tr>
+          <th>Semester 3</th>
+          <th>Semester 4</th>
+       </tr>
+       <tr>
+         <td><div class="box">add class</div></td>
+         <td><div class="box">add class</div></td>
+       </tr>
+       <tr>
+         <td><div class="box">add class</div></td>
+         <td><div class="box">add class</div></td>
+       </tr>
+       <tr>
+         <td><div class="box">add class</div></td>
+         <td><div class="box">add class</div></td>
+       </tr>
+       <tr>
+        <th>Semester 5</th>
+        <th>Semester 6</th>
+     </tr>
+     <tr>
+       <td><div class="box">add class</div></td>
+       <td><div class="box">add class</div></td>
+     </tr>
+     <tr>
+       <td><div class="box">add class</div></td>
+       <td><div class="box">add class</div></td>
+     </tr>
+     <tr>
+       <td><div class="box">add class</div></td>
+       <td><div class="box">add class</div></td>
+     </tr>
+     <tr>
+      <th>Semester 7</th>
+      <th>Semester 8</th>
+   </tr>
+   <tr>
+     <td><div class="box">add class</div></td>
+     <td><div class="box">add class</div></td>
+   </tr>
+   <tr>
+     <td><div class="box">add class</div></td>
+     <td><div class="box">add class</div></td>
+   </tr>
+   <tr>
+     <td><div class="box">add class</div></td>
+     <td><div class="box">add class</div></td>
+   </tr>
+      </table>
+    </div>
+    
+    <div class="column">
+        <div id="myDynamicTable"></div>
+
+        
+        <table class="hide">
+        <tr>
+          <th>Classes</th>
+        </tr>
+        <tr>
+          <td><div class="draggable" id="class1" draggable="true">Class 1</div></td>
+        </tr>
+        <tr>
+          <td><div class="draggable" id="class2" draggable="true">Class 2</div></td>
+        </tr>
+        <tr>
+          <td><div class="draggable" id="class3" draggable="true">Class 3</div></td>
+        </tr>
+      </table>
+    
+    </div>
+
+    <div class="column">
+        <div id="unneeded-courses" class="hide">
+            <h4>Unneeded Courses</h4>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,3 +1,5 @@
+window.onload=main; //once the web page loads, the main function runs
+
 // sets the api URL to a variable
 const apiUrl = 'https://api.umd.io/v1/courses?dept_id=CMSC&semester=202401';
 
@@ -24,6 +26,9 @@ fetch(apiUrl)
 
   // courseNames is the new data map
 
+
+//courses is a placeholder variable for the actual data we will get from the backend database of courses for each 
+//major. 
 const courses=new Map([
     ["CMSC131", 4],
     ["CMSC132", 4],
@@ -33,67 +38,72 @@ const courses=new Map([
 
 window.onload=main;
 function main(){
-    document.getElementById('four-year-plan').classList.add('hide'); //hide four year plan table until "Go" is pressed
+    document.getElementById('four-year-plan').classList.add('hide'); //hides four year plan table until "Go" is pressed
 
     /*BUTTONS*/
-    const addCourseButton = document.getElementById("add-course-button");
-    addCourseButton.onclick=addCourse;
+    const addCourseButton = document.getElementById("add-course-button"); //get the Add Course button by its HTML id
+    addCourseButton.onclick=addCourse; //when the Add Course button is clicked, the addCourse function is run
 
-    const goButton = document.getElementById("main-button");
-    goButton.onclick=getCourses;
+    const goButton = document.getElementById("main-button"); //get the Go button by its HTML id
+    goButton.onclick=getCourses; //when the Go button is clicked, the getCourses function is run
 
 
     /*DRAG AND DROP*/
-    const draggables = document.querySelectorAll('.draggable');
+    const draggables = document.querySelectorAll('.draggable'); //selects all items in HTML with class draggable
 
-    draggables.forEach(() => {
+    draggables.forEach(() => { //when a dragstart event occurs on a draggable item, run the dragStart function
       addEventListener('dragstart', dragStart);
     });
     
+    //starts a drag event
     function dragStart(e){
-      e.dataTransfer.setData('text/plain', e.target.id);
-      setTimeout(() => {
-        e.target.classList.add('hide'); 
+        //note -- e.target is used to refer to the target being dragged
+      e.dataTransfer.setData('text/plain', e.target.id); //sets the type and content of data to be dragged
+      setTimeout(() => { 
+        e.target.classList.add('hide'); //hides the drag target at its original location once it is moved
       }, 0);
 
     }
     
-    const boxes = document.querySelectorAll('.box');
+    const boxes = document.querySelectorAll('.box'); //select all boxes (which are drop targets in this case)
     
-    boxes.forEach(box => {
+    //adds all necessary functions to all box elements
+    boxes.forEach(box => { 
         box.addEventListener('dragenter', dragEnter);
         box.addEventListener('dragover', dragOver);
         box.addEventListener('dragleave', dragLeave);
         box.addEventListener('drop', drop);
     });
     
+    //adds red dashed border to the object being hovered over
     function dragEnter(e) {
         e.preventDefault();
-        e.target.classList.add('drag-over');
+        e.target.classList.add('drag-over'); //when the drag-over class is added to this element's class list, the element is now styled by the .drag-over {} class in the CSS file
     }
     
+    //adds red dashed border to the object being hovered over
     function dragOver(e) {
         e.preventDefault();
         e.target.classList.add('drag-over');
     }
     
+    //removes red dashed border to the object being hovered over
     function dragLeave(e) {
-        e.target.classList.remove('drag-over');
+        e.target.classList.remove('drag-over'); 
     }
 
+    //completes drop event
     function drop(e) {
-        const id = e.dataTransfer.getData('text/plain');
-        const draggable = document.getElementById(id);
+        const id = e.dataTransfer.getData('text/plain'); //get the data from the dragStart
+        const draggable = document.getElementById(id); //gets the original dragged element id
 
-        e.target.classList.remove('drag-over');
+        e.target.classList.remove('drag-over'); //removes the drop target's dashed red border
     
-        e.target.innerHTML="\n";
+        e.target.innerHTML="\n"; //erases old data in drop target
           
-        // add it to the drop target
-        e.target.appendChild(draggable);
+        e.target.appendChild(draggable); //adds dragged item data to the drop target
                     
-        // display the draggable element
-        draggable.classList.remove('hide');
+        draggable.classList.remove('hide'); //displays the draggable element
     }
 
 }
@@ -117,23 +127,26 @@ function addCourse(){
     document.getElementById('class-input').value="";
 }
 
-/*Makes a table of draggable elements from the course list.*/
+/*MAKING COURSELIST TABLE + REVEALING 4 YEAR PLAN INTERFACE.*/
 function getCourses(){
-    document.getElementById('four-year-plan').classList.remove('hide');
+    document.getElementById('four-year-plan').classList.remove('hide'); //reveals the four year plan table
 
-    var myTableDiv = document.getElementById("myDynamicTable");
+    var myTableDiv = document.getElementById("generatedCoursesTable"); //gets the div in which to put the course list table
 
-    var table = document.createElement('TABLE');
+    var table = document.createElement('TABLE'); //creates the table
   
-    var tableBody = document.createElement('TBODY');
-    table.appendChild(tableBody);
+    var tableBody = document.createElement('TBODY'); //creates the table body
+    table.appendChild(tableBody); 
   
-    var tr = document.createElement('TR');
-    tableBody.appendChild(tr);
-    var th = document.createElement('TH');
-    th.appendChild(document.createTextNode("Courses Needed"));
+    var tr = document.createElement('TR'); //creates a table row
+    tableBody.appendChild(tr); 
+
+    var th = document.createElement('TH'); //creates table header
+    th.appendChild(document.createTextNode("Courses Needed")); //creates text for table header
+
     tr.appendChild(th);
 
+    //adds a table row for each course from the course list
     courses.forEach(function (value, key){
         var tr = document.createElement('TR');
         tableBody.appendChild(tr);

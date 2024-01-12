@@ -1,5 +1,32 @@
 window.onload=main; //once the web page loads, the main function runs
 
+// sets the api URL to a variable
+const apiUrl = 'https://api.umd.io/v1/courses?dept_id=CMSC&semester=202401';
+
+// gets the course data from the api
+fetch(apiUrl)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`); // throws error if no data is reached
+    }
+    return response.json(); // turns data into json
+  })
+  .then(data => { // extract course name and number of credits from the api
+    const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
+
+    // output the course names and credits to the console
+    console.log(courseNames);
+    // if you have an HTML element with id 'output', you can update its content:
+    // const outputElement = document.getElementById('output');
+    // outputElement.textContent = courseNames.join('\n');
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+
+  // courseNames is the new data map
+
+
 //courses is a placeholder variable for the actual data we will get from the backend database of courses for each 
 //major. 
 const courses=new Map([
@@ -9,6 +36,7 @@ const courses=new Map([
     ["CMSC250", 4]
 ]);
 
+window.onload=main;
 function main(){
     document.getElementById('four-year-plan').classList.add('hide'); //hides four year plan table until "Go" is pressed
 

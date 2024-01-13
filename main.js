@@ -1,5 +1,16 @@
 window.onload=main; //once the web page loads, the main function runs
 
+//courses is a placeholder variable for the actual data we will get from the backend database of courses for each 
+//major. 
+const courses=new Map([
+    ["CMSC131", 4],
+    ["CMSC132", 4],
+    ["CMSC216", 4],
+    ["CMSC250", 4], 
+    ["CMSC330", 3],
+    ["CMSC351", 3]
+]);
+
 // sets the api URL to a variable
 const apiUrl = 'https://api.umd.io/v1/courses?dept_id=CMSC&semester=202401';
 
@@ -13,7 +24,9 @@ fetch(apiUrl)
   })
   .then(data => { // extract course name and number of credits from the api
     const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
-
+    
+    courses = updateCourses(courseNames);
+   // updateCourses(courseNames);
     // output the course names and credits to the console
     console.log(courseNames);
     // if you have an HTML element with id 'output', you can update its content:
@@ -26,18 +39,8 @@ fetch(apiUrl)
 
   // courseNames is the new data map
 
-
-//courses is a placeholder variable for the actual data we will get from the backend database of courses for each 
-//major. 
-const courses=new Map([
-    ["CMSC131", 4],
-    ["CMSC132", 4],
-    ["CMSC216", 4],
-    ["CMSC250", 4]
-]);
-
-window.onload=main;
 function main(){
+
     document.getElementById('four-year-plan').classList.add('hide'); //hides four year plan table until "Go" is pressed
 
     /*BUTTONS*/
@@ -132,6 +135,7 @@ function getCourses(){
     document.getElementById('four-year-plan').classList.remove('hide'); //reveals the four year plan table
 
     var myTableDiv = document.getElementById("generatedCoursesTable"); //gets the div in which to put the course list table
+    myTableDiv.innerHTML=null;
 
     var table = document.createElement('TABLE'); //creates the table
   
@@ -163,3 +167,14 @@ function getCourses(){
     
     myTableDiv.appendChild(table);
 }
+
+// Updates the 'courses' variable with the fetched data
+function updateCourses(newCourses) {
+    // Clears existing courses
+    courses.clear();
+  
+    // Adds the fetched courses to the 'courses' Map
+    newCourses.forEach(course => {
+      courses.set(course.courseName, course.credits);
+    });
+  }

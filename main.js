@@ -24,9 +24,10 @@ fetch(apiUrl)
   })
   .then(data => { // extract course name and number of credits from the api
     const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
-    
+
+    //save the courses to the global courses variable
     courses = updateCourses(courseNames);
-   // updateCourses(courseNames);
+      
     // output the course names and credits to the console
     console.log(courseNames);
     // if you have an HTML element with id 'output', you can update its content:

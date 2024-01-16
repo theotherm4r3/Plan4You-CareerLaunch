@@ -63,10 +63,10 @@ function main(){
     function dragStart(e){
         //note -- e.target is used to refer to the target being dragged
       e.dataTransfer.setData('text/plain', e.target.id); //sets the type and content of data to be dragged
-      //         setTimeout(() => {
-      //          e.target.classList.add('hide'); //hides the drag target at its original location once it is moved
-     // }, 0);
-        // add if statement to above code to check if its outside original location
+    //         setTimeout(() => {
+    //          e.target.classList.add('hide'); //hides the drag target at its original location once it is moved
+    // }, 0);
+    // add if statement to above code to check if its outside original location
     }
     
     const boxes = document.querySelectorAll('.box'); //select all boxes (which are drop targets in this case)

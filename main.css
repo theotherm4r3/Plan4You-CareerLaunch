@@ -1,11 +1,32 @@
 body {
-    background: black;
-    color: white;
+    background: whitesmoke;
+    color: black;
     text-align: center;
   }
+
+img {
+  border-radius: 10px;
+}
   
-  table, th, td {
+  table {
+    width: 100%;
+    background: wheat;
     border: 1px solid;
+    border-collapse: collapse;
+   
+  }
+
+  th {
+    background-color: hsl(11, 61%, 70%);
+  }
+
+  td {
+    background-color: wheat;
+    padding: 1rem;
+  }
+
+  tr:nth-last-of-type(2n) {
+    background-color: hsl(11, 61%, 46%);;
   }
   
   .row {

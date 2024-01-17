@@ -63,10 +63,7 @@ function main(){
     function dragStart(e){
         //note -- e.target is used to refer to the target being dragged
       e.dataTransfer.setData('text/plain', e.target.id); //sets the type and content of data to be dragged
-    //         setTimeout(() => {
-    //          e.target.classList.add('hide'); //hides the drag target at its original location once it is moved
-    // }, 0);
-    // add if statement to above code to check if its outside original location
+
     }
     
     const boxes = document.querySelectorAll('.box'); //select all boxes (which are drop targets in this case)
@@ -108,8 +105,62 @@ function main(){
         e.target.appendChild(draggable); //adds dragged item data to the drop target
                     
         draggable.classList.remove('hide'); //displays the draggable element
+
+        //updates all semester credit counts 
+        for(let i = 1; i < 9; i++){
+          countCredits("semester" + i);
+        }
+
+        /* TO JUST UPDATE THE CURRENT SEMESTER
+        let semester = extractSemester(String(e.target.classList));
+
+        countCredits(semester);
+        */
     }
 
+}
+
+/*Counts the number of credits for a given semester */
+function countCredits(semester){
+    let creditSum = 0;
+    let allBoxes = document.querySelectorAll(`.${semester}`); //select all boxes for semester
+    
+    //loop through each box (aka course) in the semester
+    allBoxes.forEach((box) => {
+
+        let parentDiv = box; //outer div
+        let creditsToAdd; //credit num for this box
+
+        // determine if there is a course inside (parent div has child) or not, assign credit num based on that
+        if (parentDiv.children.length > 0) {
+            let childDiv = parentDiv.children[0];
+            creditsToAdd = extractCreditNumber(childDiv.innerHTML);
+        } else {
+            creditsToAdd = 0;
+        }
+
+        creditSum += Number(creditsToAdd); //add this box's credit num to total
+
+    });
+
+    //update box with new number of credits
+    let boxToUpdate = document.getElementById(semester + "credits");
+    boxToUpdate.innerHTML = "Credit count: " + creditSum;
+
+}
+
+/*Isolate and return the semester# part of a string (used to get that class from a classList) */
+function extractSemester(inputString) {
+    let semesterPart = inputString.match(/semester\d+/);
+    return semesterPart[0];
+}
+
+/*Isolate and return the number of credits part of a string (used to get the number of credits from ex. CMSC131 (4)) */
+function extractCreditNumber(inputString) {
+    var startIndex = inputString.indexOf('(');
+    var endIndex = inputString.indexOf(')');
+    var extractedNumber = inputString.slice(startIndex + 1, endIndex);
+    return extractedNumber;
 }
 
 /*Removes a course from the course list (courses) so it is no longer displayed*/

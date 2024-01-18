@@ -64,6 +64,15 @@ a{
     justify-content: space-around;
     align-items: center;
   }
+
+.logo{
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 2rem;
+    text-align: left;
+}
   
   
   

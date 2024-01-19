@@ -25,18 +25,19 @@ img {
     padding: 1rem;
   }
 
+  
   tr:nth-last-of-type(2n) {
     background-color: hsl(11, 61%, 46%);;
   }
-  
+ 
   .row {
     display: flex;
     justify-content: center;
   }
   
   .column {
-    flex: 0 0 33.33%; /* Three equal-width columns */
-    max-width: 33.33%;
+    flex: 0 0 25.00%; /* four equal-width columns */
+    max-width: 25.00%;
     padding: 10px;
     box-sizing: border-box;
   }

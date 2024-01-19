@@ -10,6 +10,19 @@ const courses=new Map([
     ["CMSC330", 3],
     ["CMSC351", 3]
 ]);
+// gen eds list
+const genEds=new Map([
+    ["FSAW", 3],
+    ["FSOC", 3],
+    ["DSNL", 3],
+    ["DSHS", 3],
+    ["DSSP", 3],
+    ["DSNS", 3],
+    ["DSHU", 3],
+    ["DSHU", 3],
+    ["DSHS", 3],
+    ["FSPW", 3],
+]);
 
 // sets the api URL to a variable
 const apiUrl = 'https://api.umd.io/v1/courses?dept_id=CMSC&semester=202401';
@@ -49,8 +62,7 @@ function main(){
     addCourseButton.onclick=addCourse; //when the Add Course button is clicked, the addCourse function is run
 
     const goButton = document.getElementById("main-button"); //get the Go button by its HTML id
-    goButton.onclick=getCourses; //when the Go button is clicked, the getCourses function is run
-
+    goButton.onclick=callboth; //when the Go button is clicked, the callBoth function is run
 
     /*DRAG AND DROP*/
     const draggables = document.querySelectorAll('.draggable'); //selects all items in HTML with class draggable
@@ -230,3 +242,46 @@ function updateCourses(newCourses) {
       courses.set(course.courseName, course.credits);
     });
   }
+/*MAKING Gen Ed List TABLE + REVEALING 4 YEAR PLAN INTERFACE.*/
+
+function getGenEds(){
+
+  var myTableDiv = document.getElementById("GenEds"); //gets the div in which to put the course list table
+  myTableDiv.innerHTML=null;
+    
+  var table = document.createElement('TABLE'); //creates the table
+      
+  var tableBody = document.createElement('TBODY'); //creates the table body
+  table.appendChild(tableBody); 
+      
+  var tr = document.createElement('TR'); //creates a table row
+  tableBody.appendChild(tr); 
+    
+  var th = document.createElement('TH'); //creates table header
+  th.appendChild(document.createTextNode("Courses Needed")); //creates text for table header
+    
+  tr.appendChild(th);
+
+//adds a table row for each course from the course list
+
+  genEds.forEach(function (value, key){
+      var tr = document.createElement('TR');
+      tableBody.appendChild(tr);
+  
+      var td = document.createElement('TD');
+      var div = document.createElement('DIV');
+      td.appendChild(div);
+      div.setAttribute("class", "draggable");
+      div.setAttribute("draggable", "true");
+      div.id=key;
+      div.appendChild(document.createTextNode(key + " (" + value + ")"));
+      tr.appendChild(td);
+  });
+
+  myTableDiv.appendChild(table);
+}
+// this fucntion calls both the courses and gen ed functions
+function callboth(){
+    getCourses();
+    getGenEds();
+}

@@ -8,8 +8,13 @@ const courses=new Map([
     ["CMSC216", 4],
     ["CMSC250", 4], 
     ["CMSC330", 3],
-    ["CMSC351", 3]
+    ["CMSC351", 3],
+    ["MATH140", 4],
+    ["MATH141", 4],
+    ["STAT4XX", 3],
+    ["MATH/STAT4XX", 3]
 ]);
+
 // gen eds list
 const genEds=new Map([
     ["FSAW", 3],
@@ -36,16 +41,12 @@ fetch(apiUrl)
     return response.json(); // turns data into json
   })
   .then(data => { // extract course name and number of credits from the api
-    const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
+    const courseNames = data
+    .map(course => ({courseName: course.course_id, credits: course.credits}));
 
     //save the courses to the global courses variable
-    courses = updateCourses(courseNames);
-      
-    // output the course names and credits to the console
-    console.log(courseNames);
-    // if you have an HTML element with id 'output', you can update its content:
-    // const outputElement = document.getElementById('output');
-    // outputElement.textContent = courseNames.join('\n');
+    electives = updateCourses(courseNames);
+
   })
   .catch(error => {
     console.error('Error fetching data:', error);
@@ -210,7 +211,7 @@ function getCourses(){
     tableBody.appendChild(tr); 
 
     var th = document.createElement('TH'); //creates table header
-    th.appendChild(document.createTextNode("Courses Needed")); //creates text for table header
+    th.appendChild(document.createTextNode("Major Courses")); //creates text for table header
 
     tr.appendChild(th);
 
@@ -224,6 +225,8 @@ function getCourses(){
         td.appendChild(div);
         div.setAttribute("class", "draggable");
         div.setAttribute("draggable", "true");
+        div.classList.add("majorCourseList");
+
         div.id=key;
         div.appendChild(document.createTextNode(key + " (" + value + ")"));
         tr.appendChild(td);
@@ -242,7 +245,6 @@ function updateCourses(newCourses) {
       courses.set(course.courseName, course.credits);
     });
   }
-/*MAKING Gen Ed List TABLE + REVEALING 4 YEAR PLAN INTERFACE.*/
 
 function getGenEds(){
 
@@ -258,7 +260,7 @@ function getGenEds(){
   tableBody.appendChild(tr); 
     
   var th = document.createElement('TH'); //creates table header
-  th.appendChild(document.createTextNode("Courses Needed")); //creates text for table header
+  th.appendChild(document.createTextNode("General Education Courses")); //creates text for table header
     
   tr.appendChild(th);
 
@@ -273,6 +275,8 @@ function getGenEds(){
       td.appendChild(div);
       div.setAttribute("class", "draggable");
       div.setAttribute("draggable", "true");
+      div.classList.add("genEdCourseList");
+
       div.id=key;
       div.appendChild(document.createTextNode(key + " (" + value + ")"));
       tr.appendChild(td);
@@ -280,6 +284,7 @@ function getGenEds(){
 
   myTableDiv.appendChild(table);
 }
+
 // this fucntion calls both the courses and gen ed functions
 function callboth(){
     getCourses();

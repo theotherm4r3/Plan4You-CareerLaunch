@@ -78,6 +78,14 @@ button.green{
     background-color: #2ecc71;
 }
 
+/*Course color-coding*/
+.majorCourseList{
+  color: red;
+}
+
+.genEdCourseList{
+  color: blue;
+}
     
   
   

@@ -41,18 +41,15 @@ fetch(apiUrl)
     return response.json(); // turns data into json
   })
   .then(data => { // extract course name and number of credits from the api
-    const courseNames = data
-    .map(course => ({courseName: course.course_id, credits: course.credits}));
+    const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
 
     //save the courses to the global courses variable
-    electives = updateCourses(courseNames);
+    //electives = updateCourses(courseNames);
 
   })
   .catch(error => {
     console.error('Error fetching data:', error);
   });
-
-  // courseNames is the new data map
 
 function main(){
 

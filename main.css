@@ -36,7 +36,7 @@ img {
   }
   
   .column {
-    flex: 0 0 25.00%; /* four equal-width columns */
+    flex: 0 0 20.00%; /* four equal-width columns */
     max-width: 25.00%;
     padding: 10px;
     box-sizing: border-box;

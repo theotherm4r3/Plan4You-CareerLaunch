@@ -29,6 +29,10 @@ const genEds=new Map([
     ["FSPW", 3],
 ]);
 
+const electives2=new Map([
+  ["", 3]
+])
+
 // sets the api URL to a variable
 const apiUrl = 'https://api.umd.io/v1/courses?dept_id=CMSC&semester=202401';
 
@@ -41,10 +45,9 @@ fetch(apiUrl)
     return response.json(); // turns data into json
   })
   .then(data => { // extract course name and number of credits from the api
-    const courseNames = data.map(course => ({courseName: course.course_id, credits: course.credits}));
+    const electives = data.map(course => ({courseName: course.course_id, credits: course.credits}));
 
-    //save the courses to the global courses variable
-    //electives = updateCourses(courseNames);
+    electives2 = updateCourses(electives);
 
   })
   .catch(error => {
@@ -235,11 +238,11 @@ function getCourses(){
 // Updates the 'courses' variable with the fetched data
 function updateCourses(newCourses) {
     // Clears existing courses
-    courses.clear();
+    electives2.clear();
   
     // Adds the fetched courses to the 'courses' Map
     newCourses.forEach(course => {
-      courses.set(course.courseName, course.credits);
+      electives2.set(course.courseName, course.credits);
     });
   }
 
@@ -282,8 +285,48 @@ function getGenEds(){
   myTableDiv.appendChild(table);
 }
 
+function getElectives(){
+
+  var myTableDiv = document.getElementById("Electives"); //gets the div in which to put the course list table
+  myTableDiv.innerHTML=null;
+    
+  var table = document.createElement('TABLE'); //creates the table
+      
+  var tableBody = document.createElement('TBODY'); //creates the table body
+  table.appendChild(tableBody); 
+      
+  var tr = document.createElement('TR'); //creates a table row
+  tableBody.appendChild(tr); 
+    
+  var th = document.createElement('TH'); //creates table header
+  th.appendChild(document.createTextNode("Electives for CMSC")); //creates text for table header
+    
+  tr.appendChild(th);
+
+//adds a table row for each course from the course list
+
+  electives2.forEach(function (value, key){
+      var tr = document.createElement('TR');
+      tableBody.appendChild(tr);
+  
+      var td = document.createElement('TD');
+      var div = document.createElement('DIV');
+      td.appendChild(div);
+      div.setAttribute("class", "draggable");
+      div.setAttribute("draggable", "true");
+      div.classList.add("genEdCourseList");
+
+      div.id=key;
+      div.appendChild(document.createTextNode(key + " (" + value + ")"));
+      tr.appendChild(td);
+  });
+
+  myTableDiv.appendChild(table);
+}
+
 // this fucntion calls both the courses and gen ed functions
 function callboth(){
     getCourses();
     getGenEds();
+    getElectives();
 }

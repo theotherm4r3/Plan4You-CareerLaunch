@@ -314,7 +314,7 @@ function getElectives(){
       td.appendChild(div);
       div.setAttribute("class", "draggable");
       div.setAttribute("draggable", "true");
-      div.classList.add("genEdCourseList");
+      div.classList.add("electivesCourseList");
 
       div.id=key;
       div.appendChild(document.createTextNode(key + " (" + value + ")"));
